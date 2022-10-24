@@ -1,0 +1,65 @@
+{% include 'header.html' %}
+<title>Editar empleado</title>
+<br><br>
+{% for empleado in empleados %}
+<!-- pongo el form dentro del contenido de p de la card y cambio el formato de los input
+    ID:
+    <input type="text" value="{{ empleado[0] }}" name="txtID" id="txtID">   //en value le paso empleado en la posic 0 de la tupla que corresponde al id
+    Nombre:
+    <input type="text" value="{{ empleado[1] }}" name="txtNombre" id="txtNombre">
+    <br>
+    Correo:
+    <input type="text" value="{{ empleado[2] }}" name="txtCorreo" id="txtCorreo">
+    <br>
+    Foto:
+    <br>
+    <img class="img-thumbnail" width="100" src="{{url_for('uploads', nombreFoto=empleado[3])}}" alt=""> //con b-img-thumbnail; en src uso uun modulo de flask: url_for (que lleva dos parametros) el cual accede a un metodo de app.py (para este caso el def uploads(nombreFoto):)
+    <br>
+    //{{ empleado[3] }}   la idea es mostrar el nombre de la foto y despues la foto
+    <input type="file" name="txtFoto" id="txtFoto">
+    <br>
+    <br>
+    <input type="submit" value="Agregar">
+-->
+
+<div class="card">  <!--b-card-header-->
+    <div class="card-header">
+        Editar empleado
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Datos del empleado</h5>
+        <p class="card-text">
+
+            <form method="post" action="/update" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" name="txtID" id="txtID" value="{{ empleado[0] }}"> <!--no lo puedo sacar porque lo necesito para el metodo upload, entonces lo oculto-->
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="txtNombre">Nombre:</label>
+                    <input type="text" name="txtNombre" id="txtNombre" value="{{ empleado[1] }}" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="txtCorreo">Correo:</label> 
+                    <input type="text" name="txtCorreo" id="txtCorreo" value="{{ empleado[2] }}" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="txtFoto">Foto:</label>
+                    <img class="img-thumbnail" width="100" src="{{url_for('uploads', nombreFoto=empleado[3])}}" alt="">
+                    <input type="file" name="txtFoto" id="txtFoto" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Modificar">
+                    <a href="{{url_for('employees')}}" class="btn btn-primary">Regresar</a>
+                </div>
+            </form>
+
+        </p>
+    </div>
+</div>
+    
+{% endfor %}
+{% include 'footer.html' %}

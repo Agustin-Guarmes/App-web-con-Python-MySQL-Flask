@@ -1,0 +1,59 @@
+{% include 'header.html' %}
+<title>Crear empleados</title>
+
+{% with messages= get_flashed_messages() %} <!--recivo (si es que hay un error) todos los mensajes usando flash-->
+    {% if messages %}   <!--si hay mensajes, mostramelos en el div con la clase de bootstrap alert-danger-->
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<!--
+    reemplazo los input antiguos que estaban en el form por el nuevo formato
+    Nombre:
+    <input type="text" name="txtNombre" id="txtNombre">
+    <br>
+    Correo:
+    <input type="text" name="txtCorreo" id="txtCorreo">
+    <br>
+    Foto:
+    <input type="file" name="txtFoto" id="txtFoto">
+    <br><br>
+    <input type="submit" value="Agregar">
+-->
+<br>
+<div class="card">  <!--b-card-header-->
+    <div class="card-header">
+        Ingresar empleados
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Datos del empleado</h5>
+        <p class="card-text">
+            <form method="post" action="/store" enctype="multipart/form-data">  <!--el formulacio manda la info a /store-->
+                <div class="form-group">    <!--agrego un b-form-group-->
+                    <label for="txtNombre">Nombre:</label>  <!--cambio por txtNombre-->
+                    <input type="text" name="txtNombre" id="txtNombre" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="txtCorreo">Correo:</label> 
+                    <input type="text" name="txtCorreo" id="txtCorreo" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="txtFoto">Foto:</label> 
+                    <input type="file" name="txtFoto" id="txtFoto" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Agregar">
+                    <a href="{{url_for('employees')}}" class="btn btn-primary">Regresar</a>
+                </div>
+            </form>  
+        </p>
+    </div>
+</div>
+{% include 'footer.html' %}

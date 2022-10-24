@@ -1,0 +1,35 @@
+{% include 'header.html' %}    <!--jinja: jinclude+tab-->
+<title>Empleados</title>
+    <br>
+    <a href="{{url_for('create')}}" class="btn btn-success">    <!--lo referencio al metodo create y le doy la clase de bootstrap-->
+        Ingresar nuevo empleado
+    </a>
+    <br>
+    <br>       
+    <table class="table table-light">   <!--con extencion de bootstrap: b-table-header-->
+        <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %} <!--atajo 'jfor' (que me da jinja2): me permite recorrer cada registro de la tabla (la tupla creada)-->
+            <tr>
+                <td>{{empleado[0]}}</td>    <!--0 porque esta en esa posicion en la tupla-->
+                <td>
+                    <img class="img-thumbnail" width="100" src="uploads/{{empleado[3]}}" alt="">    <!--con el atajo de bootstrap: b-imag-thumbnail, la imagen la saco de la ruta: carpera uploads/'nombre de la imagen'-->
+                </td>
+                <td>{{empleado[1]}}</td>
+                <td>{{empleado[2]}}</td>
+                <td><a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar</a> |    <!--agrego clase bootstrap-->
+                    <a class="btn btn-danger" onclick="return confirm('¿Desea borrar al empleado?')" href="/destroy/{{empleado[0]}}">Eliminar</a>  <!--llama a la funcion destroy, pasando el id(es el que esta en la posic 0) como parametro, agrego clase bootstrap y un confirm que es parecido al alert (el onclick lo uso para desencadenar una accion)-->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>  
+{% include 'footer.html' %}
